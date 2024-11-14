@@ -7,9 +7,12 @@ export default class TasksController {
     return response.json(tasks)
   }
 
-  async createTask({ request }: HttpContext) {
+  async createTask({ request, response }: HttpContext) {
     try {
       const req = request.only(['task_name', 'status'])
+      if (!req.task_name) {
+        return response.status(400).json({ messages: 'User needs to add task name' })
+      }
       const createdTask = await Task.create(req)
       return createdTask
     } catch (error) {
