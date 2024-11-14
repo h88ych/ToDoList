@@ -21,7 +21,7 @@ export default class TasksController {
     const deleteId = params.id
     console.log(deleteId)
     try {
-      const findTask = await Task.findByOrFail(deleteId)
+      const findTask = await Task.findByOrFail('id', deleteId)
 
       if (!findTask) {
         return response.status(404).json({ messages: 'This TaskId is not found' })
