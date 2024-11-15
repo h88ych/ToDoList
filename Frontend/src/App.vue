@@ -105,17 +105,20 @@ const saveTask = async (task) => {
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center min-h-screen">
-    <h1 class="text-4xl font-bold mb-14">ToDo List</h1>
-    <div class="mb-4">
+  <div
+    class="flex flex-col justify-center items-center min-h-screen p-4 sm:p-8"
+  >
+    <h1 class="text-4xl font-bold mb-6 sm:mb-14">ToDo List</h1>
+
+    <div class="mb-4 w-full sm:w-auto">
       <input
         v-model="taskName"
         type="text"
         placeholder="Enter task name"
-        class="p-2 border rounded-md w-64 mb-6"
+        class="p-2 border rounded-md w-full sm:w-64 mb-6"
       />
       <button
-        class="ml-6 rounded-md w-full sm:w-auto mt-2 sm:mt-4 p-[7px] bg-green-300 text-white"
+        class="w-full sm:w-auto mt-2 sm:mt-4 p-2 bg-green-300 text-white rounded-md"
         @click="addTask()"
       >
         Add
@@ -127,19 +130,19 @@ const saveTask = async (task) => {
         <li
           v-for="task in allTask"
           :key="task.id"
-          class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center"
+          class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center"
         >
-          <div>
+          <div class="w-full sm:w-3/4">
             <div v-if="editTaskId === task.id">
               <input
                 v-model="task.taskName"
                 type="text"
-                class="p-2 border border-gray-300 rounded-md"
+                class="p-2 border border-gray-300 rounded-md w-full"
               />
               <br />
               <select
                 v-model="task.status"
-                class="mt-1 p-1 border border-gray-300 rounded-md text-xs"
+                class="mt-1 p-1 border border-gray-300 rounded-md text-xs w-full sm:w-1/2"
               >
                 <option value="pending">Pending</option>
                 <option value="in_progress">In Progress</option>
@@ -157,7 +160,7 @@ const saveTask = async (task) => {
               </p>
             </div>
           </div>
-          <div class="space-x-8">
+          <div class="space-x-4 mt-4 sm:mt-0">
             <button
               class="text-sm text-red-500 hover:text-red-700"
               @click="deleteTask(task.id)"
@@ -184,4 +187,43 @@ const saveTask = async (task) => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* mobile */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  input,
+  button {
+    width: 100%;
+  }
+
+  .space-x-4 {
+    margin-top: 12px;
+  }
+
+  .flex-row {
+    flex-direction: column;
+  }
+
+  .text-xs {
+    font-size: 0.75rem;
+  }
+}
+
+/* Tablet ++ */
+@media (min-width: 640px) {
+  .sm:w-64 {
+    width: 16rem;
+  }
+
+  .sm:w-auto {
+    width: auto;
+  }
+
+  .sm:space-x-8 {
+    margin-left: 2rem;
+  }
+}
+</style>
